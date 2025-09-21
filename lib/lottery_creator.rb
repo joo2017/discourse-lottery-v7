@@ -22,12 +22,8 @@ class LotteryCreator
     # 更新主题自定义字段
     update_topic_fields(lottery_type, winner_count, specified_floors)
 
-    # 创建数据库记录
-    lottery_entry = create_lottery_entry(lottery_type, winner_count, specified_floors)
-    return failure("创建抽奖记录失败") unless lottery_entry.persisted?
-
     # 调度任务
-    schedule_jobs(lottery_entry)
+    schedule_jobs
 
     # 添加标签
     add_lottery_tag
@@ -87,32 +83,16 @@ class LotteryCreator
     topic.save_custom_fields
   end
 
-  def create_lottery_entry(lottery_type, winner_count, specified_floors)
-    LotteryEntry.create(
-      topic_id: topic.id,
-      user_id: user.id,
-      title: topic.custom_fields["lottery_title"],
-      prize_description: topic.custom_fields["lottery_prize_description"],
-      image_upload_id: topic.custom_fields["lottery_image_upload_id"],
-      draw_time: Time.parse(topic.custom_fields["lottery_draw_time"]),
-      winner_count: winner_count,
-      specified_floors: specified_floors,
-      min_participants: topic.custom_fields["lottery_min_participants"].to_i,
-      backup_strategy: topic.custom_fields["lottery_backup_strategy"],
-      additional_notes: topic.custom_fields["lottery_additional_notes"],
-      lottery_type: lottery_type,
-      status: 'running'
-    )
-  end
-
-  def schedule_jobs(lottery_entry)
+  def schedule_jobs
+    draw_time = Time.parse(topic.custom_fields["lottery_draw_time"])
+    
     # 调度开奖任务
-    Jobs.enqueue_at(lottery_entry.draw_time, :execute_lottery_draw, {
-      lottery_entry_id: lottery_entry.id
+    Jobs.enqueue_at(draw_time, :execute_lottery_draw, {
+      topic_id: topic.id
     })
 
     # 调度锁定任务
-    lock_time = lottery_entry.draw_time - SiteSetting.lottery_post_lock_delay_minutes.minutes
+    lock_time = draw_time - SiteSetting.lottery_post_lock_delay_minutes.minutes
     if lock_time > Time.current
       Jobs.enqueue_at(lock_time, :lock_lottery_post, {
         topic_id: topic.id

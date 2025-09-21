@@ -1,0 +1,104 @@
+en:
+  js:
+    lottery:
+      button_title: "Add Lottery"
+      modal_title: "Create Lottery Event"
+      
+      form:
+        title_label: "Event Title"
+        title_placeholder: "Enter the lottery event title"
+        title_required: "Event title is required"
+        
+        prize_description_label: "Prize Description"
+        prize_description_placeholder: "Describe the prize in detail"
+        prize_description_required: "Prize description is required"
+        
+        image_label: "Prize Image"
+        
+        draw_time_label: "Draw Time"
+        draw_time_required: "Draw time is required"
+        draw_time_future: "Draw time must be in the future"
+        
+        winner_count_label: "Number of Winners"
+        winner_count_hint: "This is for random lottery. Will be overridden if you specify floors below."
+        winner_count_min: "Number of winners must be at least 1"
+        winner_count_max: "Number of winners cannot exceed 100"
+        
+        specified_floors_label: "Specified Winning Floors (Optional)"
+        specified_floors_placeholder: "e.g., 8, 18, 28"
+        specified_floors_hint: "Fill this to override random lottery. Enter floor numbers separated by commas."
+        specified_floors_invalid: "Invalid floor format. Floor numbers must be >= 2 and separated by commas."
+        
+        min_participants_label: "Minimum Participants"
+        min_participants_hint: "Minimum required: %{min} participants"
+        min_participants_error: "Minimum participants cannot be less than %{min}"
+        
+        backup_strategy_label: "Backup Strategy"
+        backup_strategy_continue: "Continue draw when insufficient participants"
+        backup_strategy_cancel: "Cancel event when insufficient participants"
+        
+        additional_notes_label: "Additional Notes"
+        additional_notes_placeholder: "Any additional information or rules (optional)"
+        
+        submit: "Create Lottery"
+        cancel: "Cancel"
+        success_message: "Lottery created successfully!"
+        
+      status:
+        running: "In Progress"
+        finished: "Completed"
+        cancelled: "Cancelled"
+        unknown: "Unknown"
+        
+      type:
+        random: "Random Draw"
+        specified_floors: "Specified Floors"
+        
+      backup_strategy:
+        continue: "Continue when insufficient"
+        cancel: "Cancel when insufficient"
+        
+      details:
+        prize: "Prize"
+        image: "Image"
+        draw_time: "Draw Time"
+        lottery_type: "Lottery Type"
+        winner_count: "Winners"
+        min_participants: "Min Participants"
+        backup_strategy: "Backup Strategy"
+        additional_notes: "Notes"
+        
+      countdown:
+        draw_time: "Time until draw"
+        edit_deadline: "Edit deadline"
+        
+      time:
+        days_remaining:
+          one: "%{count} day remaining"
+          other: "%{count} days remaining"
+        hours_remaining:
+          one: "%{count} hour remaining"
+          other: "%{count} hours remaining"
+        minutes_remaining:
+          one: "%{count} minute remaining"
+          other: "%{count} minutes remaining"
+        seconds_remaining:
+          one: "%{count} second remaining"
+          other: "%{count} seconds remaining"
+        draw_time_passed: "Draw time has passed"
+        locked: "Locked"
+        
+      winners:
+        title: "Winners List"
+        
+      cancelled:
+        message: "This lottery has been cancelled"
+        
+      actions:
+        edit: "Edit"
+        
+      errors:
+        lottery_disabled: "Lottery feature is disabled"
+        insufficient_permissions: "Insufficient permissions"
+        invalid_category: "Lottery not allowed in this category"
+        system_error: "System error occurred"

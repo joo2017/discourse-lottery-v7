@@ -1,0 +1,36 @@
+plugins:
+  lottery_enabled:
+    client: true
+    default: true
+    description: "启用抽奖插件功能"
+    
+  lottery_min_participants_global:
+    client: true
+    default: 5
+    min: 1
+    max: 1000
+    description: "全局最低参与人数门槛"
+    
+  lottery_post_lock_delay_minutes:
+    client: true
+    default: 30
+    min: 0
+    max: 1440
+    description: "抽奖发布后的规则保护期（分钟），超过此时间后将锁定主楼层"
+    
+  lottery_excluded_groups:
+    client: true
+    type: group_list
+    default: "staff|moderators"
+    description: "排除在抽奖参与者之外的用户组"
+    
+  lottery_category_ids:
+    client: true
+    type: category_list
+    default: ""
+    description: "允许发起抽奖的分类ID列表"
+    
+  lottery_allow_image_upload:
+    client: true
+    default: true
+    description: "允许在抽奖中上传奖品图片"

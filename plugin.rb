@@ -5,7 +5,7 @@
 # version: 7.0.0
 # authors: Your Name
 # url: https://github.com/your-username/discourse-lottery-v7
-# required_version: 3.2.0
+# required_version: 3.1.0
 # transpile_js: true
 
 enabled_site_setting :lottery_enabled
@@ -15,7 +15,7 @@ register_asset "stylesheets/lottery.scss"
 PLUGIN_NAME = "discourse-lottery-v7"
 
 after_initialize do
-  # 注册自定义字段类型
+  # 注册自定义字段类型 (沿用你原有的方式)
   register_topic_custom_field_type("lottery_title", :string)
   register_topic_custom_field_type("lottery_prize_description", :text)
   register_topic_custom_field_type("lottery_image_upload_id", :integer)
@@ -27,8 +27,9 @@ after_initialize do
   register_topic_custom_field_type("lottery_additional_notes", :text)
   register_topic_custom_field_type("lottery_type", :string)
   register_topic_custom_field_type("lottery_status", :string)
+  register_topic_custom_field_type("lottery_winners_data", :json)
 
-  # 确保自定义字段包含在序列化中
+  # 确保自定义字段包含在序列化中 (沿用你原有的方式)
   TopicView.default_topic_custom_fields << "lottery_title"
   TopicView.default_topic_custom_fields << "lottery_prize_description"
   TopicView.default_topic_custom_fields << "lottery_image_upload_id"
@@ -40,22 +41,18 @@ after_initialize do
   TopicView.default_topic_custom_fields << "lottery_additional_notes"
   TopicView.default_topic_custom_fields << "lottery_type"
   TopicView.default_topic_custom_fields << "lottery_status"
+  TopicView.default_topic_custom_fields << "lottery_winners_data"
 
-  # 加载库文件
-  %w[
-    lottery_creator
-    lottery_manager
-    lottery_validator
-  ].each { |lib| load File.expand_path("../lib/#{lib}.rb", __FILE__) }
-
-  # 加载控制器
+  # 加载库文件 (基于你原有的加载方式)
+  load File.expand_path('../lib/lottery_creator.rb', __FILE__)
+  load File.expand_path('../lib/lottery_manager.rb', __FILE__)
+  load File.expand_path('../lib/lottery_validator.rb', __FILE__)
   load File.expand_path('../app/controllers/lottery_controller.rb', __FILE__)
 
   # 加载任务
-  %w[
-    execute_lottery_draw
-    lock_lottery_post
-  ].each { |job| load File.expand_path("../app/jobs/#{job}.rb", __FILE__) }
+  load File.expand_path('../app/jobs/execute_lottery_draw.rb', __FILE__)
+  load File.expand_path('../app/jobs/execute_lottery_creator.rb', __FILE__)
+  load File.expand_path('../app/jobs/lock_lottery_post.rb', __FILE__)
 
   # 注册路由
   Discourse::Application.routes.append do
@@ -63,7 +60,7 @@ after_initialize do
     get '/lottery/:topic_id' => 'lottery#show'
   end
 
-  # 扩展 Topic 模型
+  # 扩展 Topic 模型 (基于你原有的方式)
   Topic.class_eval do
     def has_lottery?
       custom_fields["lottery_title"].present?
@@ -83,7 +80,8 @@ after_initialize do
         backup_strategy: custom_fields["lottery_backup_strategy"],
         additional_notes: custom_fields["lottery_additional_notes"],
         lottery_type: custom_fields["lottery_type"],
-        status: custom_fields["lottery_status"] || "running"
+        status: custom_fields["lottery_status"] || "running",
+        winners_data: custom_fields["lottery_winners_data"]
       }
     end
 
@@ -91,16 +89,9 @@ after_initialize do
       return nil unless custom_fields["lottery_image_upload_id"].present?
       Upload.find_by(id: custom_fields["lottery_image_upload_id"])
     end
-
-    def lottery_winners
-      return [] unless has_lottery?
-      posts.where("raw LIKE '%@%' AND user_id = ?", Discourse::SYSTEM_USER_ID)
-           .where("raw LIKE '%中奖%'")
-           .order(:post_number)
-    end
   end
 
-  # 添加到序列化器
+  # 添加到序列化器 (基于你原有的方式)
   add_to_serializer(:topic_view, :lottery_data, include_condition: -> { object.topic.has_lottery? }) do
     data = object.topic.lottery_data
     if data && data[:image_upload_id].present?
@@ -128,8 +119,12 @@ after_initialize do
     next unless post.topic.has_lottery?
     
     # 检查是否还在后悔期内
-    lock_time = Time.parse(post.topic.custom_fields["lottery_draw_time"]) - SiteSetting.lottery_post_lock_delay_minutes.minutes
-    next if Time.current > lock_time
+    begin
+      lock_time = Time.parse(post.topic.custom_fields["lottery_draw_time"]) - SiteSetting.lottery_post_lock_delay_minutes.minutes
+      next if Time.current > lock_time
+    rescue
+      next
+    end
     
     # 重新验证和处理抽奖数据
     Jobs.enqueue(:execute_lottery_creator, {

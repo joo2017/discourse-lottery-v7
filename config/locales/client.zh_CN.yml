@@ -1,0 +1,100 @@
+zh_CN:
+  js:
+    lottery:
+      button_title: "添加抽奖"
+      modal_title: "创建抽奖活动"
+      
+      form:
+        title_label: "活动名称"
+        title_placeholder: "请输入抽奖活动名称"
+        title_required: "活动名称不能为空"
+        
+        prize_description_label: "奖品说明"
+        prize_description_placeholder: "请详细描述奖品信息"
+        prize_description_required: "奖品说明不能为空"
+        
+        image_label: "奖品图片"
+        
+        draw_time_label: "开奖时间"
+        draw_time_required: "请选择开奖时间"
+        draw_time_future: "开奖时间必须是未来时间"
+        
+        winner_count_label: "获奖人数"
+        winner_count_hint: "这是随机抽奖时的获奖人数。如果下方指定了中奖楼层，将以楼层数量为准。"
+        winner_count_min: "获奖人数不能少于1人"
+        winner_count_max: "获奖人数不能超过100人"
+        
+        specified_floors_label: "指定中奖楼层（可选）"
+        specified_floors_placeholder: "例如：8, 18, 28"
+        specified_floors_hint: "填写此项将覆盖随机抽奖。请输入楼层号，用英文逗号分隔。"
+        specified_floors_invalid: "楼层格式无效。楼层号必须≥2且用逗号分隔。"
+        
+        min_participants_label: "参与门槛"
+        min_participants_hint: "系统要求最少 %{min} 人参与"
+        min_participants_error: "参与门槛不能低于 %{min} 人"
+        
+        backup_strategy_label: "后备策略"
+        backup_strategy_continue: "当开奖时人数不足，继续开奖"
+        backup_strategy_cancel: "当开奖时人数不足，取消活动"
+        
+        additional_notes_label: "补充说明"
+        additional_notes_placeholder: "任何额外的说明或规则（可选）"
+        
+        submit: "创建抽奖"
+        cancel: "取消"
+        success_message: "抽奖创建成功！"
+        
+      status:
+        running: "进行中"
+        finished: "已结束"
+        cancelled: "已取消"
+        unknown: "未知状态"
+        
+      type:
+        random: "随机抽取"
+        specified_floors: "指定楼层"
+        
+      backup_strategy:
+        continue: "人数不足时继续开奖"
+        cancel: "人数不足时取消活动"
+        
+      details:
+        prize: "奖品说明"
+        image: "奖品图片"
+        draw_time: "开奖时间"
+        lottery_type: "抽奖方式"
+        winner_count: "获奖人数"
+        min_participants: "参与门槛"
+        backup_strategy: "后备策略"
+        additional_notes: "补充说明"
+        
+      countdown:
+        draw_time: "距离开奖"
+        edit_deadline: "编辑截止"
+        
+      time:
+        days_remaining:
+          other: "%{count}天后"
+        hours_remaining:
+          other: "%{count}小时后"
+        minutes_remaining:
+          other: "%{count}分钟后"
+        seconds_remaining:
+          other: "%{count}秒后"
+        draw_time_passed: "开奖时间已过"
+        locked: "已锁定"
+        
+      winners:
+        title: "中奖名单"
+        
+      cancelled:
+        message: "此抽奖活动已取消"
+        
+      actions:
+        edit: "编辑"
+        
+      errors:
+        lottery_disabled: "抽奖功能未启用"
+        insufficient_permissions: "权限不足"
+        invalid_category: "该分类不允许创建抽奖"
+        system_error: "系统错误"

@@ -130,6 +130,745 @@
       border: 1px solid var(--lottery-border);
       
       .preview-image {
-        max-width: 300px;
+max-width: 300px;
         max-height: 200px;
-        border-
+        border-radius: 8px;
+        box-shadow: 0 4px 12px var(--lottery-shadow);
+        border: 2px solid var(--lottery-border);
+        display: block;
+        margin: 0 auto;
+        object-fit: cover;
+      }
+    }
+    
+    .alert {
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      
+      &.alert-error {
+        background-color: rgba(231, 76, 60, 0.1);
+        color: var(--lottery-danger);
+        border-color: var(--lottery-danger);
+      }
+    }
+  }
+  
+  .modal-footer {
+    padding: 20px 25px;
+    border-top: 1px solid var(--lottery-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    background: var(--primary-very-low);
+  }
+  
+  .lottery-submit {
+    .loading-icon {
+      margin-right: 8px;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+// 抽奖信息卡片样式
+.lottery-info-card {
+  margin: 20px 0;
+  padding: 25px;
+  background: var(--lottery-bg);
+  border: 2px solid var(--lottery-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px var(--lottery-shadow);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60, #3498db);
+  }
+  
+  &.lottery-status-running {
+    border-color: var(--lottery-info);
+    
+    &::before {
+      background: var(--lottery-info);
+    }
+  }
+  
+  &.lottery-status-finished {
+    border-color: var(--lottery-success);
+    
+    &::before {
+      background: var(--lottery-success);
+    }
+  }
+  
+  &.lottery-status-cancelled {
+    border-color: var(--lottery-danger);
+    
+    &::before {
+      background: var(--lottery-danger);
+    }
+  }
+  
+  .lottery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    .lottery-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      
+      .status-icon {
+        font-size: 20px;
+        
+        .lottery-status-running & {
+          color: var(--lottery-info);
+          animation: pulse 2s infinite;
+        }
+        
+        .lottery-status-finished & {
+          color: var(--lottery-success);
+        }
+        
+        .lottery-status-cancelled & {
+          color: var(--lottery-danger);
+        }
+      }
+      
+      .status-text {
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+    
+    .lottery-edit-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--tertiary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: var(--tertiary-hover);
+        transform: translateY(-1px);
+      }
+    }
+  }
+  
+  .lottery-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--lottery-text);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  
+  .lottery-details {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 20px;
+    
+    .detail-item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      
+      .detail-label {
+        font-weight: 600;
+        color: #666;
+        min-width: 100px;
+        flex-shrink: 0;
+      }
+      
+      .detail-value {
+        flex: 1;
+        color: var(--lottery-text);
+      }
+    }
+    
+    .lottery-image {
+      margin-top: 10px;
+      
+      .prize-image {
+        max-width: 400px;
+        max-height: 300px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px var(--lottery-shadow);
+        border: 2px solid var(--lottery-border);
+        object-fit: cover;
+      }
+    }
+  }
+  
+  .lottery-countdown {
+    background: var(--primary-very-low);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--lottery-border);
+    margin-bottom: 20px;
+    
+    .countdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      &.edit-warning {
+        color: var(--lottery-warning);
+        font-weight: 600;
+      }
+      
+      .countdown-label {
+        font-weight: 600;
+        color: #666;
+      }
+      
+      .countdown-value {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--lottery-info);
+        
+        &.expired {
+          color: var(--lottery-danger);
+        }
+      }
+    }
+  }
+  
+  .lottery-winners {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(39, 174, 96, 0.05));
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid var(--lottery-success);
+    
+    .winners-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--lottery-success);
+      margin-bottom: 15px;
+      
+      i {
+        font-size: 20px;
+      }
+    }
+    
+    .winners-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      .winner-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(39, 174, 96, 0.2);
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .winner-rank {
+          font-weight: 700;
+          color: var(--lottery-success);
+          min-width: 30px;
+        }
+        
+        .winner-username {
+          font-weight: 600;
+          color: var(--lottery-text);
+        }
+        
+        .winner-floor {
+          color: #666;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  
+  .lottery-cancelled {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.05));
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid var(--lottery-danger);
+    
+    .cancelled-message {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--lottery-danger);
+      
+      i {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+// 主题列表中的抽奖标识
+.lottery-topic-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  
+  &.running {
+    background: rgba(52, 152, 219, 0.1);
+    color: var(--lottery-info);
+    border: 1px solid var(--lottery-info);
+  }
+  
+  &.finished {
+    background: rgba(39, 174, 96, 0.1);
+    color: var(--lottery-success);
+    border: 1px solid var(--lottery-success);
+  }
+  
+  &.cancelled {
+    background: rgba(231, 76, 60, 0.1);
+    color: var(--lottery-danger);
+    border: 1px solid var(--lottery-danger);
+  }
+  
+  i {
+    font-size: 14px;
+  }
+}
+
+// 主题列表徽章
+.badge-notification {
+  &.lottery-running {
+    background: var(--lottery-info);
+    color: white;
+  }
+  
+  &.lottery-finished {
+    background: var(--lottery-success);
+    color: white;
+  }
+  
+  &.lottery-cancelled {
+    background: var(--lottery-danger);
+    color: white;
+  }
+}
+
+// 小部件样式
+.lottery-info-wrapper {
+  margin: 20px 0;
+  
+  .lottery-separator {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--lottery-border), transparent);
+    margin: 20px 0;
+  }
+}
+
+.lottery-info-card-widget {
+  background: var(--lottery-bg);
+  border: 2px solid var(--lottery-border);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 16px var(--lottery-shadow);
+  
+  .lottery-header {
+    margin-bottom: 20px;
+    
+    .lottery-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      
+      &.status-running {
+        color: var(--lottery-info);
+      }
+      
+      &.status-finished {
+        color: var(--lottery-success);
+      }
+      
+      &.status-cancelled {
+        color: var(--lottery-danger);
+      }
+      
+      .status-icon {
+        font-size: 18px;
+      }
+      
+      .status-text {
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+    }
+  }
+  
+  .lottery-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--lottery-text);
+  }
+  
+  .lottery-details {
+    .detail-item {
+      display: flex;
+      margin-bottom: 12px;
+      
+      .detail-label {
+        font-weight: 600;
+        color: #666;
+        min-width: 100px;
+        margin-right: 10px;
+      }
+      
+      .detail-value {
+        color: var(--lottery-text);
+      }
+    }
+    
+    .lottery-image {
+      margin-top: 10px;
+      
+      .prize-image {
+        max-width: 350px;
+        max-height: 250px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px var(--lottery-shadow);
+        border: 2px solid var(--lottery-border);
+      }
+    }
+  }
+  
+  .lottery-countdown {
+    background: var(--primary-very-low);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    
+    .countdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .countdown-label {
+        font-weight: 600;
+        color: #666;
+      }
+      
+      .countdown-value {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--lottery-info);
+        
+        &.expired {
+          color: var(--lottery-danger);
+        }
+      }
+    }
+  }
+  
+  .lottery-winners {
+    margin-top: 20px;
+    background: rgba(39, 174, 96, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--lottery-success);
+    
+    .winners-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--lottery-success);
+      margin-bottom: 15px;
+    }
+    
+    .winners-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      .winner-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(39, 174, 96, 0.2);
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .winner-rank {
+          font-weight: 700;
+          color: var(--lottery-success);
+          min-width: 25px;
+        }
+        
+        .winner-username {
+          font-weight: 600;
+        }
+        
+        .winner-floor {
+          color: #666;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
+
+// 图片上传器样式
+.image-uploader {
+  .uppy-FileInput-container {
+    border: 2px dashed var(--lottery-border);
+    border-radius: 8px;
+    padding: 30px 20px;
+    text-align: center;
+    background: var(--primary-very-low);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+      border-color: var(--lottery-info);
+      background: rgba(52, 152, 219, 0.05);
+    }
+    
+    .uppy-FileInput-btn {
+      background: var(--lottery-info);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: #2980b9;
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+// 动画效果
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .lottery-form-modal {
+    .modal-inner-container {
+      width: 95vw;
+      margin: 10px;
+    }
+    
+    .modal-body {
+      padding: 20px;
+    }
+    
+    .lottery-form {
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+        
+        .form-group {
+          width: 100%;
+          
+          &:first-child {
+            margin-right: 0;
+          }
+        }
+      }
+      
+      .form-group.half-width {
+        width: 100%;
+        display: block;
+        
+        &:first-child {
+          margin-right: 0;
+        }
+      }
+    }
+    
+    .modal-footer {
+      padding: 15px 20px;
+      flex-direction: column;
+      gap: 10px;
+      
+      .btn {
+        width: 100%;
+        margin-bottom: 5px;
+      }
+    }
+  }
+  
+  .lottery-info-card {
+    padding: 20px;
+    margin: 15px 0;
+    
+    .lottery-header {
+      flex-direction: column;
+      gap: 15px;
+      align-items: flex-start;
+    }
+    
+    .lottery-title {
+      font-size: 20px;
+    }
+    
+    .lottery-details {
+      .detail-item {
+        flex-direction: column;
+        gap: 5px;
+        
+        .detail-label {
+          min-width: auto;
+        }
+      }
+    }
+    
+    .lottery-countdown {
+      padding: 15px;
+      
+      .countdown-item {
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+        
+        .countdown-value {
+          font-size: 16px;
+        }
+      }
+    }
+    
+    .lottery-image .prize-image {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  
+  .lottery-info-card-widget {
+    padding: 20px;
+    
+    .lottery-title {
+      font-size: 18px;
+    }
+    
+    .lottery-details {
+      .detail-item {
+        flex-direction: column;
+        gap: 5px;
+        
+        .detail-label {
+          min-width: auto;
+        }
+      }
+    }
+    
+    .lottery-image .prize-image {
+      max-width: 100%;
+    }
+  }
+}
+
+// 暗色主题适配
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lottery-border: #444;
+    --lottery-bg: var(--secondary);
+    --lottery-text: var(--primary);
+    --lottery-shadow: rgba(0, 0, 0, 0.3);
+  }
+  
+  .lottery-info-card,
+  .lottery-info-card-widget {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    
+    .lottery-image .prize-image {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  .lottery-form-modal {
+    .uploaded-image-preview .preview-image {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+// 打印样式
+@media print {
+  .lottery-info-card,
+  .lottery-info-card-widget {
+    border: 2px solid #000;
+    box-shadow: none;
+    page-break-inside: avoid;
+    
+    .lottery-header .lottery-edit-btn {
+      display: none;
+    }
+    
+    .lottery-countdown {
+      display: none;
+    }
+  }
+  
+  .lottery-form-modal {
+    display: none;
+  }
+}

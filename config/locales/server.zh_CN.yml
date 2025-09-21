@@ -1,0 +1,27 @@
+zh_CN:
+  site_settings:
+    lottery_enabled: "启用抽奖插件"
+    lottery_min_participants_global: "全局最低参与人数门槛"
+    lottery_post_lock_delay_minutes: "抽奖发布后帖子锁定延迟时间（分钟）"
+    lottery_excluded_groups: "排除在抽奖参与者之外的用户组"
+    lottery_category_ids: "允许创建抽奖的分类"
+    lottery_allow_image_upload: "允许在抽奖中上传图片"
+    
+  lottery:
+    system_messages:
+      creation_failed: "抽奖创建失败：%{reason}。请检查设置后重新尝试。"
+      draw_completed: "🎉 **抽奖结果公布** 🎉\n\n**活动名称：** %{title}\n**开奖时间：** %{time}\n**中奖名单：**\n\n%{winners}\n\n恭喜以上用户中奖！请注意查收私信通知。"
+      draw_cancelled: "❌ **抽奖活动已取消** ❌\n\n**活动名称：** %{title}\n**取消原因：** %{reason}\n**取消时间：** %{time}\n\n感谢大家的参与！"
+      post_locked: "⏰ 抽奖规则保护期已结束，主楼层已锁定，无法再修改抽奖设置。"
+      winner_notification_title: "🎉 抽奖中奖通知 - %{title}"
+      winner_notification_body: "🎉 恭喜您在抽奖活动中获奖！\n\n**活动名称：** %{title}\n**奖品说明：** %{prize}\n**您的楼层：** %{floor}楼\n**开奖时间：** %{time}\n\n请尽快联系活动发起者 @%{organizer} 领取奖品。\n\n[查看抽奖主题](%{url})"
+      
+    errors:
+      feature_disabled: "抽奖功能未启用"
+      missing_required_fields: "缺少必要的抽奖信息"
+      insufficient_min_participants: "参与门槛不能低于 %{min} 人"
+      invalid_draw_time: "开奖时间必须是未来时间"
+      system_error: "系统错误：%{message}"
+      lottery_not_found: "抽奖不存在"
+      insufficient_participants: "参与人数不足（需要 %{min} 人，实际 %{actual} 人）"
+      all_floors_invalid: "所有指定楼层都无效"

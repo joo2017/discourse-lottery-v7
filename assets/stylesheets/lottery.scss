@@ -1,0 +1,135 @@
+// 抽奖插件样式文件
+
+// CSS 变量定义
+:root {
+  --lottery-primary: #e74c3c;
+  --lottery-success: #27ae60;
+  --lottery-warning: #f39c12;
+  --lottery-info: #3498db;
+  --lottery-danger: #e74c3c;
+  --lottery-border: #ddd;
+  --lottery-bg: var(--secondary);
+  --lottery-text: var(--primary);
+  --lottery-shadow: rgba(0, 0, 0, 0.1);
+}
+
+// 抽奖表单模态框样式
+.lottery-form-modal {
+  .modal-inner-container {
+    max-width: 700px;
+    width: 90vw;
+  }
+  
+  .modal-body {
+    padding: 25px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .lottery-form {
+    .form-group {
+      margin-bottom: 20px;
+      
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--lottery-text);
+        font-size: 14px;
+        
+        .required {
+          color: var(--lottery-danger);
+          margin-left: 3px;
+          font-size: 16px;
+        }
+      }
+      
+      .form-control {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid var(--lottery-border);
+        border-radius: 8px;
+        font-size: 14px;
+        background: var(--lottery-bg);
+        color: var(--lottery-text);
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        
+        &:focus {
+          outline: none;
+          border-color: var(--lottery-info);
+          box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        &:hover {
+          border-color: #bbb;
+        }
+        
+        &.error {
+          border-color: var(--lottery-danger);
+          background-color: rgba(231, 76, 60, 0.05);
+          
+          &:focus {
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+          }
+        }
+      }
+      
+      textarea.form-control {
+        resize: vertical;
+        min-height: 80px;
+        font-family: var(--font-family);
+        line-height: 1.5;
+      }
+      
+      select.form-control {
+        cursor: pointer;
+      }
+      
+      .form-hint {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+        line-height: 1.4;
+      }
+      
+      .error-message {
+        color: var(--lottery-danger);
+        font-size: 13px;
+        margin-top: 5px;
+        font-weight: 500;
+        display: block;
+      }
+      
+      &.half-width {
+        width: calc(50% - 10px);
+        display: inline-block;
+        
+        &:first-child {
+          margin-right: 20px;
+        }
+      }
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 20px;
+      
+      .form-group {
+        flex: 1;
+        margin-bottom: 20px;
+      }
+    }
+    
+    .uploaded-image-preview {
+      margin-top: 15px;
+      text-align: center;
+      padding: 15px;
+      background: var(--primary-very-low);
+      border-radius: 8px;
+      border: 1px solid var(--lottery-border);
+      
+      .preview-image {
+        max-width: 300px;
+        max-height: 200px;
+        border-

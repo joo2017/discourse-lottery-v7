@@ -16,7 +16,7 @@ class CreateLotteryEntries < ActiveRecord::Migration[7.0]
       t.text :additional_notes
       t.string :lottery_type, null: false
       t.string :status, null: false, default: 'running'
-      t.text :winners_data
+      t.jsonb :winners_data, default: []  # 直接使用 jsonb 类型
       t.timestamps null: false
     end
 

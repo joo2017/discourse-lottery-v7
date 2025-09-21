@@ -1,0 +1,27 @@
+en:
+  site_settings:
+    lottery_enabled: "Enable lottery plugin"
+    lottery_min_participants_global: "Global minimum participants threshold"
+    lottery_post_lock_delay_minutes: "Post lock delay in minutes after lottery creation"
+    lottery_excluded_groups: "User groups excluded from lottery participation"
+    lottery_category_ids: "Categories where lottery is allowed"
+    lottery_allow_image_upload: "Allow image upload in lottery"
+    
+  lottery:
+    system_messages:
+      creation_failed: "Lottery creation failed: %{reason}. Please check your settings and try again."
+      draw_completed: "🎉 **Lottery Results** 🎉\n\n**Event:** %{title}\n**Draw Time:** %{time}\n**Winners:**\n\n%{winners}\n\nCongratulations to all winners! Please check your private messages."
+      draw_cancelled: "❌ **Lottery Cancelled** ❌\n\n**Event:** %{title}\n**Reason:** %{reason}\n**Cancelled Time:** %{time}\n\nThank you for your participation!"
+      post_locked: "⏰ The lottery grace period has ended. The main post is now locked and lottery settings cannot be modified."
+      winner_notification_title: "🎉 Lottery Win Notification - %{title}"
+      winner_notification_body: "🎉 Congratulations! You have won in the lottery!\n\n**Event:** %{title}\n**Prize:** %{prize}\n**Your Floor:** Floor %{floor}\n**Draw Time:** %{time}\n\nPlease contact the event organizer @%{organizer} to claim your prize.\n\n[View Lottery Topic](%{url})"
+      
+    errors:
+      feature_disabled: "Lottery feature is disabled"
+      missing_required_fields: "Missing required lottery information"
+      insufficient_min_participants: "Minimum participants cannot be less than %{min}"
+      invalid_draw_time: "Draw time must be in the future"
+      system_error: "System error: %{message}"
+      lottery_not_found: "Lottery not found"
+      insufficient_participants: "Insufficient participants (required: %{min}, actual: %{actual})"
+      all_floors_invalid: "All specified floors are invalid"

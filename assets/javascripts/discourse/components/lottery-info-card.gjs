@@ -3,6 +3,7 @@ import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
+import { on } from "@ember/modifier";  // 添加这行导入
 import { i18n } from "discourse-i18n";
 import icon from "discourse-common/helpers/d-icon";
 import { formatDate } from "discourse/helpers/format-date";
@@ -104,11 +105,9 @@ export default class LotteryInfoCard extends Component {
   get canEdit() {
     if (!this.isRunning || !this.currentUser) return false;
     
-    // 检查是否是作者
     const topic = this.args.topic;
     if (topic?.user_id !== this.currentUser.id) return false;
     
-    // 检查是否还在编辑期内
     return this.lockTimeRemaining && this.lockTimeRemaining !== "已锁定";
   }
 
@@ -121,7 +120,6 @@ export default class LotteryInfoCard extends Component {
     const lockDelay = (this.args.siteSettings?.lottery_post_lock_delay_minutes || 30) * 60 * 1000;
     const lockTime = drawTime - lockDelay;
     
-    // 更新开奖倒计时
     const timeUntilDraw = drawTime - now;
     if (timeUntilDraw > 0) {
       this.timeRemaining = this.formatTimeRemaining(timeUntilDraw);
@@ -129,7 +127,6 @@ export default class LotteryInfoCard extends Component {
       this.timeRemaining = i18n("lottery.time.draw_time_passed");
     }
     
-    // 更新锁定倒计时
     if (this.isRunning) {
       const timeUntilLock = lockTime - now;
       if (timeUntilLock > 0) {

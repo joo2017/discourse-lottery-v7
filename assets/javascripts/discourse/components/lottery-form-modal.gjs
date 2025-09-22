@@ -2,6 +2,7 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import { eq } from "truth-helpers";  // 添加这行导入
 import DModal from "discourse/components/d-modal";
 import DButton from "discourse/components/d-button";
 import DModalCancel from "discourse/components/d-modal-cancel";
@@ -75,7 +76,6 @@ export default class LotteryFormModal extends Component {
     const value = parseInt(event.target.value) || 1;
     this.minParticipants = value;
     
-    // 实时验证最小参与人数
     if (value < this.globalMinParticipants) {
       this.errors.minParticipants = i18n("lottery.form.min_participants_error", {
         min: this.globalMinParticipants
@@ -150,7 +150,6 @@ export default class LotteryFormModal extends Component {
       isValid = false;
     }
 
-    // 验证指定楼层格式
     if (this.specifiedFloors.trim()) {
       const floors = this.specifiedFloors.split(',').map(f => f.trim());
       for (let floor of floors) {
@@ -207,7 +206,6 @@ export default class LotteryFormModal extends Component {
       this.dialog.alert(i18n("lottery.form.success_message"));
       this.args.closeModal();
       
-      // 刷新页面以显示抽奖信息
       window.location.reload();
 
     } catch (error) {
